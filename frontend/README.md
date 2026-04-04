@@ -1,4 +1,34 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Finance Pro
+
+Finance Pro now has a split frontend/backend structure:
+
+- `app/` contains the Next.js frontend
+- `backend/` contains a standalone Express API
+
+## Running the app
+
+Frontend:
+
+```bash
+npm run dev
+```
+
+Backend:
+
+```bash
+cd backend
+npm install
+npm run dev
+```
+
+## API
+
+The backend exposes a small set of starter endpoints:
+
+- `GET /health`
+- `GET /api/summary`
+
+You can extend the backend with persistence, authentication, or additional finance flows as needed.This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
 
