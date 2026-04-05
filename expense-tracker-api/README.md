@@ -1,4 +1,4 @@
-# Finance Pro Backend
+# Enpense Tracker Backend
 
 This folder contains a standalone Express backend for the Finance Pro workspace.
 
