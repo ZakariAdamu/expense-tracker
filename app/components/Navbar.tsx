@@ -5,6 +5,7 @@ import img1 from "../assets/logo.png";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { ChevronDown, LogOut, User } from "lucide-react";
+import { useUserRole, type UserRole } from "../context/UserRoleContext";
 // import axios from "axios";
 
 // const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
@@ -43,6 +44,7 @@ const Navbar = ({ user: propUser }: NavbarProps) => {
 	const router = useRouter();
 	const menuRef = useRef<HTMLDivElement>(null);
 	const [menuOpen, setMenuOpen] = useState(false);
+	const { role, setRole } = useUserRole();
 
 	const user = propUser || {
 		name: "Zakari Adamu",
@@ -113,10 +115,25 @@ const Navbar = ({ user: propUser }: NavbarProps) => {
 											<div className={navbarStyles.dropdownEmail}>
 												{user?.email}
 											</div>
+											<div className="mt-2">
+												<label className="block text-xs text-gray-500 mb-1">
+													Role
+												</label>
+												<select
+													value={role}
+													onChange={(event) =>
+														setRole(event.target.value as UserRole)
+													}
+													className="w-full rounded-md border border-gray-200 bg-white px-2 py-1 text-xs text-gray-700"
+												>
+													<option value="Admin">Admin</option>
+													<option value="Guest">Guest</option>
+												</select>
+											</div>
 										</div>
 									</div>
 								</div>
-								<div className={navbarStyles.menuItemContainer}>
+								<div className={`${navbarStyles.menuItemContainer} hidden`}>
 									<button
 										onClick={() => {
 											setMenuOpen(false);

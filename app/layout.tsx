@@ -8,6 +8,7 @@ import { styles } from "./assets/styles";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import { SidebarProvider } from "./context/SidebarContext";
+import { UserRoleProvider } from "./context/UserRoleContext";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -37,14 +38,16 @@ export default function RootLayout({
 			className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
 		>
 			<body className={styles.layout.root}>
-				<Navbar />
-				<SidebarProvider
-					sidebarCollapsed={sidebarCollapsed}
-					setSidebarCollapsed={setSidebarCollapsed}
-				>
-					<Sidebar />
-					{children}
-				</SidebarProvider>
+				<UserRoleProvider>
+					<Navbar />
+					<SidebarProvider
+						sidebarCollapsed={sidebarCollapsed}
+						setSidebarCollapsed={setSidebarCollapsed}
+					>
+						<Sidebar />
+						{children}
+					</SidebarProvider>
+				</UserRoleProvider>
 			</body>
 		</html>
 	);
