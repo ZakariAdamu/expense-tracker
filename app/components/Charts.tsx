@@ -242,19 +242,19 @@ export default function Charts() {
 			<section className={dashboardStyles.summaryGrid}>
 				<div className="rounded-2xl bg-white p-5 shadow-sm border border-gray-100">
 					<p className="text-sm text-gray-500">Income</p>
-					<p className="mt-2 text-3xl font-bold text-teal-600">
+					<p className="mt-2 text-3xl xl:text-2xl w-fit font-bold text-teal-600">
 						${formatCurrency(summary.income)}
 					</p>
 				</div>
 				<div className="rounded-2xl bg-white p-5 shadow-sm border border-gray-100">
 					<p className="text-sm text-gray-500">Expenses</p>
-					<p className="mt-2 text-3xl font-bold text-orange-600">
+					<p className="mt-2 text-3xl xl:text-2xl w-fit font-bold text-orange-600">
 						${formatCurrency(summary.expenses)}
 					</p>
 				</div>
 				<div className="rounded-2xl bg-white p-5 shadow-sm border border-gray-100">
 					<p className="text-sm text-gray-500">Savings</p>
-					<p className="mt-2 text-3xl font-bold text-cyan-600">
+					<p className="mt-2 text-3xl xl:text-2xl w-fit font-bold text-cyan-600">
 						${formatCurrency(summary.savings)}
 					</p>
 					<p
