@@ -1,11 +1,12 @@
 "use client";
 
-import type {
-	Dispatch,
-	SyntheticEvent as FormEvent,
-	SetStateAction,
+import {
+	type Dispatch,
+	type SyntheticEvent as FormEvent,
+	type SetStateAction,
 } from "react";
 import { modalStyles } from "../assets/styles";
+import { X } from "lucide-react";
 
 type TransactionType = "income" | "expense";
 type ModalVariant = "both" | TransactionType;
@@ -25,7 +26,7 @@ export type AddTransactionModalProps = {
 	setShowModal: Dispatch<SetStateAction<boolean>>;
 	newTransaction: NewTransaction;
 	setNewTransaction: Dispatch<SetStateAction<NewTransaction>>;
-	handleAddTransaction: () => void;
+	handleAddTransaction: () => Promise<boolean> | boolean | void;
 	type?: ModalVariant;
 	title?: string;
 	buttonText?: string;
@@ -67,10 +68,12 @@ export default function AddTransactionModal({
 	const minDate = `${currentYear}-01-01`;
 	const colorClass = modalStyles.colorClasses[color];
 
-	const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+	const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		handleAddTransaction();
-		setShowModal(false);
+		const created = await Promise.resolve(handleAddTransaction());
+		if (created !== false) {
+			setShowModal(false);
+		}
 	};
 
 	return (
@@ -83,7 +86,7 @@ export default function AddTransactionModal({
 						onClick={() => setShowModal(false)}
 						className={modalStyles.closeButton}
 					>
-						x
+						<X size={20} />
 					</button>
 				</div>
 

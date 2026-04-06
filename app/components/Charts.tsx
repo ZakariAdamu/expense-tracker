@@ -38,6 +38,11 @@ type ChartPoint = {
 	value: number;
 };
 
+type ToastState = {
+	type: "success" | "error";
+	message: string;
+};
+
 function formatCurrency(value: number) {
 	return value.toLocaleString("en-US", {
 		minimumFractionDigits: 2,
@@ -70,6 +75,7 @@ export default function Charts() {
 	const [loading, setLoading] = useState(false);
 	const [showAllIncome, setShowAllIncome] = useState(false);
 	const [showAllExpense, setShowAllExpense] = useState(false);
+	const [toast, setToast] = useState<ToastState | null>(null);
 	const [newTransaction, setNewTransaction] = useState<NewTransaction>({
 		type: "expense",
 		description: "",
@@ -155,13 +161,27 @@ export default function Charts() {
 		}
 	}, [role, showModal]);
 
+	useEffect(() => {
+		if (!toast) return;
+		const timeout = setTimeout(() => setToast(null), 3000);
+		return () => clearTimeout(timeout);
+	}, [toast]);
+
 	const handleAddTransaction = async () => {
 		if (role !== "Admin") {
-			return;
+			setToast({
+				type: "error",
+				message: "Only Admin can create transactions.",
+			});
+			return false;
 		}
 
 		if (!newTransaction.description.trim() || !newTransaction.amount) {
-			return;
+			setToast({
+				type: "error",
+				message: "Please fill in description and amount.",
+			});
+			return false;
 		}
 
 		setLoading(true);
@@ -181,8 +201,17 @@ export default function Charts() {
 				category: "Food",
 				date: new Date().toISOString().split("T")[0],
 			});
-			setShowModal(false);
-			await refreshTransactions();
+			setToast({
+				type: "success",
+				message: "Transaction created successfully.",
+			});
+			return true;
+		} catch {
+			setToast({
+				type: "error",
+				message: "Failed to create transaction. Please try again.",
+			});
+			return false;
 		} finally {
 			setLoading(false);
 		}
@@ -190,6 +219,19 @@ export default function Charts() {
 
 	return (
 		<div className="space-y-6">
+			{toast && (
+				<div className="fixed right-5 top-5 z-60">
+					<div
+						className={`rounded-lg px-4 py-3 text-sm shadow-lg border ${
+							toast.type === "success"
+								? "bg-green-50 text-green-700 border-green-200"
+								: "bg-red-50 text-red-700 border-red-200"
+						}`}
+					>
+						{toast.message}
+					</div>
+				</div>
+			)}
 			<section className={dashboardStyles.headerContainer}>
 				<div className={dashboardStyles.headerContent}>
 					<div>
