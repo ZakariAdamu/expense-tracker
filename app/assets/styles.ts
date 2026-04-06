@@ -26,7 +26,7 @@ export const dashboardStyles = {
 
 	// Summary cards grid
 	summaryGrid:
-		"grid grid-cols-1 lg:-mx-3 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-5 mb-8",
+		"grid grid-cols-1 lg:-mx-3 lg:px-4 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-5 mb-8",
 
 	// Financial card styles
 	balanceBadge: "bg-teal-100 text-teal-800 px-2 py-1 rounded-lg text-xs",
@@ -38,7 +38,7 @@ export const dashboardStyles = {
 
 	// Pie chart container styles
 	pieChartContainer:
-		"hidden md:block bg-white lg:-mx-5.5 md:-mx-4 lg:p-1 xl:-mx-3 rounded-xl p-5 shadow-sm border border-gray-100 relative overflow-hidden mb-8",
+		"hidden md:block bg-white bg-pink-300! lg:mx-5 md:-mx-4 lg:p-1 xl:-mx-3 rounded-xl p-5 shadow-sm border border-gray-100 relative overflow-hidden mb-8",
 	pieChartHeader:
 		"flex flex-col sm:flex-row justify-between items-start sm:items-center mb-5 gap-3",
 	pieChartTitle:
