@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+
+echo "🔎 Pre-commit checks starting..."
+echo "🧹 Running lint-staged on staged files"
+
+# Run linting + formatting on staged files
+if ! npx lint-staged; then
+	cat <<'EOF'
+
+❌ Pre-commit failed
+➡️ Fix the errors shown above, then re-stage files and try again.
+🧭 Commit message format errors are reported in the commit-msg hook.
+📖 Guide: COMMIT_MESSAGE_GUIDE.md
+EOF
+	exit 1
+fi
+
+echo "✅ Pre-commit passed!"
