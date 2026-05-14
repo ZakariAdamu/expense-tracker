@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+
+echo "🧾 Checking commit message format..."
+
+if ! npx --no -- commitlint --edit "$1"; then
+	cat <<'EOF'
+
+✖ Commit message failed commitlint.
+→ Expected format: <type>(<scope>): <subject>
+→ Allowed types: build, chore, ci, docs, feat, fix, perf, refactor, revert, style, test
+→ Rules live in: commitlint.config.ts
+→ Guide: COMMIT_MESSAGE_GUIDE.md
+→ Example: feat(auth): add login flow
+EOF
+	exit 1
+fi

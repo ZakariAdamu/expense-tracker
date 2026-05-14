@@ -30,6 +30,10 @@ The backend exposes a small set of starter endpoints:
 
 You can extend the backend with persistence, authentication, or additional finance flows as needed.This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Commit Messages
+
+See COMMIT_MESSAGE_GUIDE.md for the required commit message format and examples.
+
 ## Getting Started
 
 First, run the development server:
