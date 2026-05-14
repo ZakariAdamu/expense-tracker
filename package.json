@@ -8,7 +8,7 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "eslint",
-		"prepare": "husky",
+		"prepare": "husky || true",
 		"bundle-check": "tsx scripts/check-bundle-size.ts"
 	},
 	"lint-staged": {
