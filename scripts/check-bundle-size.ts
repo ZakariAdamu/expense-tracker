@@ -25,6 +25,7 @@ function checkBundleSizes() {
   console.log("📦 Checking production bundle budgets...");
   const files = getAllFiles(NEXT_STATIC_DIR);
   let hasWarnings = false;
+  let totalSizeKB = 0;
 
   files.forEach((filePath) => {
     const fileName = path.basename(filePath);
@@ -36,6 +37,7 @@ function checkBundleSizes() {
       const fileBuffer = fs.readFileSync(filePath);
       const gzippedSize = zlib.gzipSync(fileBuffer).length;
       const sizeKB = parseFloat((gzippedSize / 1024).toFixed(2));
+      totalSizeKB += sizeKB;
 
       if (sizeKB > matchingRule.maxSizeKB) {
         // Log a visible warning without disrupting execution flow
@@ -58,6 +60,8 @@ function checkBundleSizes() {
   } else {
     console.log("\n✨ All bundles are within healthy limits.");
   }
+
+  console.log(`\n📊 Total Bundle Size: ${totalSizeKB}KB`);
 
   // Always force exit 0 to guarantee Husky proceeds with the push
   process.exit(0);
