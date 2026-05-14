@@ -1,18 +1,17 @@
+#!/usr/bin/env sh
+set -e
+
 echo "🚀 Running pre-push checks..."
 
 # 1. Type checking
 echo "→ Type checking..."
 npm run type-check
 
-# 2. Full build
-echo "→ Building project..."
-npm run build
-
-# 3. Bundle verification
-echo "🔨 Triggering pre-push bundle verification..."
+# 2. Building project and bundle verification
+echo "🔨 Building project and triggering pre-push bundle verification..."
 npm run build && npm run bundle-check
 
-# 4. Optional: Run tests (uncomment if you have tests)
+# 3. Optional: Run tests (uncomment if you have tests)
 # echo "→ Running tests..."
 # npm test
 

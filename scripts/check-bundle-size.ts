@@ -41,6 +41,12 @@ function getAllFiles(dirPath: string, fileArray: string[] = []): string[] {
 
 function checkBundleSizes() {
   console.log("📦 Checking production bundle budgets...");
+  if (!fs.existsSync(NEXT_STATIC_DIR)) {
+    console.error(
+      "❌ Error: .next/static directory not found. Please run 'npm run build' first.",
+    );
+    process.exit(1);
+  }
   const files = getAllFiles(NEXT_STATIC_DIR);
   let hasWarnings = false;
   let totalSizeKB = 0;
