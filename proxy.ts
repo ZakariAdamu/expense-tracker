@@ -11,7 +11,7 @@ export function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
-  const protectedRoutes = ["/dashboard", "/income", "/expenses"];
+  const protectedRoutes = ["/", "/dashboard", "/income", "/expenses"];
 
   const isProtected = protectedRoutes.some((route) =>
     url.pathname.startsWith(route),
@@ -26,5 +26,5 @@ export function proxy(request: NextRequest) {
 
 // Ensures the middleware runs only on the routes we care about
 export const config = {
-  matcher: ["/dashboard/:path*", "/income/:path*", "/expenses/:path*"],
+  matcher: ["/", "/dashboard/:path*", "/income/:path*", "/expenses/:path*"],
 };
