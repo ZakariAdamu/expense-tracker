@@ -5,163 +5,138 @@ import img1 from "../assets/logo.png";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { ChevronDown, LogOut, User } from "lucide-react";
-import { useUserRole, type UserRole } from "../context/UserRoleContext";
-// import axios from "axios";
+import { NavbarProps } from "../types/types";
+import { useAuth } from "@/app/context/AuthContext";
 
-// const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+const Navbar = ({ user: propUser, onLogout }: NavbarProps) => {
+  const router = useRouter();
+  const menuRef = useRef<HTMLDivElement>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
 
-type NavbarProps = {
-	user?: {
-		name: string;
-		email: string;
-	};
-};
+  const { user: ctxUser, logout: ctxLogout } = useAuth();
+  const user = propUser ?? ctxUser ?? { name: null, email: null, image: null };
 
-const Navbar = ({ user: propUser }: NavbarProps) => {
-	// fetch user data from server
+  // no-op: user comes from prop or AuthContext
 
-	// useEffect(() => {
-	// 	const fetchUserData = async () => {
-	// 		try {
-	// 			const token = localStorage.getItem("token");
-	// 			if (!token) {
-	// 				return;
-	// 			}
-	// 			const response = await axios.get(`${API_BASE_URL}/users/me`, {
-	// 				headers: { Authorization: `Bearer ${token}` },
-	// 			});
+  const toggleMenu = () => {
+    setMenuOpen((prev) => !prev);
+  };
 
-	// 			const userData = response.data.user || response.data;
-	// 		} catch (error) {
-	// 			console.error("Error fetching user data:", error);
-	// 		}
-	// 	};
-	// 	if (!propUser) {
-	// 		fetchUserData();
-	// 	}
-	// }, [propUser]);
+  const handleLogout = () => {
+    setMenuOpen(false);
+    try {
+      ctxLogout?.();
+    } catch {
+      // fallback: clear storage
+      localStorage.removeItem("authToken");
+    }
+    onLogout?.();
+    router.push("/login");
+  };
 
-	const router = useRouter();
-	const menuRef = useRef<HTMLDivElement>(null);
-	const [menuOpen, setMenuOpen] = useState(false);
-	const { role, setRole } = useUserRole();
+  // close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setMenuOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
-	const user = propUser || {
-		name: "Zakari Adamu",
-		email: "zakari.adamu714@gmail.com",
-	};
+  return (
+    <header className={navbarStyles.header}>
+      <div className={navbarStyles.container}>
+        {/* logo */}
+        <div
+          onClick={() => router.push("/")}
+          className={navbarStyles.logoContainer}
+        >
+          <div className={navbarStyles.logoImage}>
+            <Image src={img1} alt="logo" width={50} height={50} />
+          </div>
+          <span className={navbarStyles.logoText}>Expense Tracker</span>
+        </div>
+        {/* If user is logged in */}
+        {user && (
+          <div className={navbarStyles.userContainer} ref={menuRef}>
+            <button onClick={toggleMenu} className={navbarStyles.userButton}>
+              <div className="relative">
+                <div
+                  className={navbarStyles.userAvatar}
+                  suppressHydrationWarning
+                >
+                  {user?.name?.[0]?.toUpperCase() || "U"}
+                </div>
+                <div className={navbarStyles.statusIndicator}></div>
+              </div>
+              <div className={navbarStyles.userTextContainer}>
+                <p className={navbarStyles.userName} suppressHydrationWarning>
+                  {user?.name || "User"}
+                </p>
+                <p className={navbarStyles.userEmail} suppressHydrationWarning>
+                  {user?.email || "user@expensetracker.com"}
+                </p>
+              </div>
+              <ChevronDown
+                size={16}
+                className={`${navbarStyles.chevronIcon} ${menuOpen ? "rotate-180" : ""}`}
+              />
+            </button>
 
-	const toggleMenu = () => {
-		setMenuOpen((prev) => !prev);
-	};
-
-	// close menu when clicking outside
-	useEffect(() => {
-		const handleClickOutside = (event: MouseEvent) => {
-			if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-				setMenuOpen(false);
-			}
-		};
-		document.addEventListener("mousedown", handleClickOutside);
-		return () => {
-			document.removeEventListener("mousedown", handleClickOutside);
-		};
-	}, []);
-
-	return (
-		<header className={navbarStyles.header}>
-			<div className={navbarStyles.container}>
-				{/* logo */}
-				<div
-					onClick={() => router.push("/")}
-					className={navbarStyles.logoContainer}
-				>
-					<div className={navbarStyles.logoImage}>
-						<Image src={img1} alt="logo" width={50} height={50} />
-					</div>
-					<span className={navbarStyles.logoText}>Expense Tracker</span>
-				</div>
-				{user && (
-					<div className={navbarStyles.userContainer} ref={menuRef}>
-						<button onClick={toggleMenu} className={navbarStyles.userButton}>
-							<div className="relative">
-								<div className={navbarStyles.userAvatar}>
-									{user?.name?.[0]?.toUpperCase() || "U"}
-								</div>
-								<div className={navbarStyles.statusIndicator}></div>
-							</div>
-							<div className={navbarStyles.userTextContainer}>
-								<p className={navbarStyles.userName}>{user?.name || "User"}</p>
-								<p className={navbarStyles.userEmail}>{user?.email}</p>
-							</div>
-							<ChevronDown
-								size={16}
-								className={`${navbarStyles.chevronIcon} ${menuOpen ? "rotate-180" : ""}`}
-							/>
-						</button>
-
-						{/* dropdown menu */}
-						{menuOpen && (
-							<div className={navbarStyles.dropdownMenu}>
-								<div className={navbarStyles.dropdownHeader}>
-									<div className="flex items-center gap-3">
-										<div className={navbarStyles.dropdownAvatar}>
-											{user?.name?.[0]?.toUpperCase() || "U"}
-										</div>
-										<div className="">
-											<div className={navbarStyles.dropdownName}>
-												{user?.name || "User"}
-											</div>
-											<div className={navbarStyles.dropdownEmail}>
-												{user?.email}
-											</div>
-											<div className="mt-2">
-												<label className="block text-xs text-gray-500 mb-1">
-													Role
-												</label>
-												<select
-													value={role}
-													onChange={(event) =>
-														setRole(event.target.value as UserRole)
-													}
-													className="w-full rounded-md border border-gray-200 bg-white px-2 py-1 text-xs text-gray-700"
-												>
-													<option value="Admin">Admin</option>
-													<option value="Guest">Guest</option>
-												</select>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div className={`${navbarStyles.menuItemContainer} hidden`}>
-									<button
-										onClick={() => {
-											setMenuOpen(false);
-											router.push("/profile");
-										}}
-										className={navbarStyles.menuItem}
-									>
-										<User size={16} className="mr-2" />
-										<span>My Profile</span>
-									</button>
-								</div>
-								<div className={navbarStyles.menuItemBorder}>
-									<button
-										onClick={() => {}}
-										className={navbarStyles.logoutButton}
-									>
-										<LogOut size={16} className="mr-2" />
-										<span>Logout</span>
-									</button>
-								</div>
-							</div>
-						)}
-					</div>
-				)}
-				;
-			</div>
-		</header>
-	);
+            {/* dropdown menu */}
+            {menuOpen && (
+              <div className={navbarStyles.dropdownMenu}>
+                <div className={navbarStyles.dropdownHeader}>
+                  <div className="flex items-center gap-3">
+                    <div
+                      className={navbarStyles.dropdownAvatar}
+                      suppressHydrationWarning
+                    >
+                      {user?.name?.[0]?.toUpperCase() || "U"}
+                    </div>
+                    <div>
+                      <div className={navbarStyles.dropdownName}>
+                        {user?.name || "User"}
+                      </div>
+                      <div className={navbarStyles.dropdownEmail}>
+                        {user?.email || "user@expensetracker.com"}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className={`${navbarStyles.menuItemContainer} hidden`}>
+                  <button
+                    onClick={() => {
+                      setMenuOpen(false);
+                      router.push("/profile");
+                    }}
+                    className={navbarStyles.menuItem}
+                  >
+                    <User size={16} className="mr-2" />
+                    <span>My Profile</span>
+                  </button>
+                </div>
+                <div className={navbarStyles.menuItemBorder}>
+                  <button
+                    onClick={handleLogout}
+                    className={navbarStyles.logoutButton}
+                  >
+                    <LogOut size={16} className="mr-2" />
+                    <span>Logout</span>
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+        ;
+      </div>
+    </header>
+  );
 };
 
 export default Navbar;

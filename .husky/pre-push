@@ -15,4 +15,4 @@ npm run build && npm run bundle-check
 # echo "→ Running tests..."
 # npm test
 
-echo "✅ All checks passed! Pushing..."
+echo "✅ All checks passed! Pushing your code now..."
