@@ -1,11 +1,19 @@
-import DashboardPage from "./dashboard/page";
+"use client";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import DashboardPage from "./(dashboard-segment)/dashboard/DashboardPage";
 
-const HomePage = () => {
-	return (
-		<>
-			<DashboardPage />
-		</>
-	);
+const Page = () => {
+  // const router = useRouter();
+
+  // useEffect(() => {
+  // 	router.push("/signup");
+  // }, []);
+  return (
+    <div className="">
+      <DashboardPage sidebarCollapsed={true} />
+    </div>
+  );
 };
 
-export default HomePage;
+export default Page;
