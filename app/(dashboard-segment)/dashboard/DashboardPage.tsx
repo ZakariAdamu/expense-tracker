@@ -302,7 +302,7 @@ export default function DashboardPage({
       <div className={styles.layout.mainContainer(sidebarCollapsed)}>
         <div className={styles.header.container}>
           <div>
-            <h1 className="Welcome">Dashboard</h1>
+            <h1 className="text-black/90">Dashboard</h1>
             <p className={styles.header.subtitle}>
               Welcome Back {user?.name || ""}
             </p>

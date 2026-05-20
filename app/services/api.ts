@@ -11,16 +11,16 @@ export type LogoutReason = "expired" | "user" | "forced" | "unknown";
 
 const nodeEnv = process.env.NODE_ENV;
 
-// Base URL for API requests, determined by environment variables or defaults
-// const baseURL = "https://expense-tracker-api-1-hkrb.onrender.com/api";
+// Use production API base URL for quick debugging if you don't want to start the local server
+const baseURL = "https://expense-tracker-api-1-hkrb.onrender.com/api";
 
-const baseURL =
-  nodeEnv === "production"
-    ? (process.env.NEXT_PUBLIC_API_BASE_URL_PROD ??
-      process.env.NEXT_PUBLIC_API_BASE_URL)
-    : (process.env.NEXT_PUBLIC_API_BASE_URL_LOCAL ??
-      process.env.NEXT_PUBLIC_API_BASE_URL ??
-      "http://localhost:4000/api");
+// const baseURL =
+// 	nodeEnv === "production"
+// 		? (process.env.NEXT_PUBLIC_API_BASE_URL_PROD ??
+// 			process.env.NEXT_PUBLIC_API_BASE_URL)
+// 		: (process.env.NEXT_PUBLIC_API_BASE_URL_LOCAL ??
+// 			process.env.NEXT_PUBLIC_API_BASE_URL ??
+// 			"http://localhost:4000/api");
 
 const api = axios.create({
   baseURL,

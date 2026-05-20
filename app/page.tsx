@@ -1,17 +1,14 @@
 "use client";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import DashboardPage from "./(dashboard-segment)/dashboard/DashboardPage";
 
 const Page = () => {
   const router = useRouter();
 
   useEffect(() => {
-    router.push("/dashboard");
+    router.replace("/dashboard");
   }, []);
-  return (
-    <div className="">{/* <DashboardPage sidebarCollapsed={true} /> */}</div>
-  );
+  return <></>;
 };
 
 export default Page;

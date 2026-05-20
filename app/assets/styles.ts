@@ -480,18 +480,18 @@ export const navbarStyles = {
   // Layout and container styles
   header: "sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm",
   container:
-    "flex items-center justify-between px-4 py-3 md:px-8 max-w-7xl mx-auto",
+    "flex items-center justify-between gap-40 w-full px-4 py-3 md:px-8 zzmax-w-7xl mx-auto",
 
   // Logo styles
-  logoContainer: "flex items-center gap-0 cursor-pointer",
+  logoContainer: "flex items-center lg:ml-10 gap-0 cursor-pointer",
   logoImage: "w-15 h-15 rounded-xl overflow-hidden",
 
   // Text styles
   logoText:
-    "lg:text-3xl md:text-3xl text-2xl text-gray-900 font-[550] lobster-regular",
+    "lg:text-3xl md:text-3xl w-full text-xl text-gray-900 font-[550] lobster-regular",
 
   // User profile styles
-  userContainer: "relative",
+  userContainer: "relative lg:ml-auto lg:mr-20",
   userButton:
     "flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-50 transition-colors",
   userAvatar:
