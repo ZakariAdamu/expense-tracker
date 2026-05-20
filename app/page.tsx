@@ -4,15 +4,13 @@ import { useRouter } from "next/navigation";
 import DashboardPage from "./(dashboard-segment)/dashboard/DashboardPage";
 
 const Page = () => {
-  // const router = useRouter();
+  const router = useRouter();
 
-  // useEffect(() => {
-  // 	router.push("/signup");
-  // }, []);
+  useEffect(() => {
+    router.push("/dashboard");
+  }, []);
   return (
-    <div className="">
-      <DashboardPage sidebarCollapsed={true} />
-    </div>
+    <div className="">{/* <DashboardPage sidebarCollapsed={true} /> */}</div>
   );
 };
 

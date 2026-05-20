@@ -10,6 +10,10 @@ interface ErrorResponseData {
 export type LogoutReason = "expired" | "user" | "forced" | "unknown";
 
 const nodeEnv = process.env.NODE_ENV;
+
+// Base URL for API requests, determined by environment variables or defaults
+// const baseURL = "https://expense-tracker-api-1-hkrb.onrender.com/api";
+
 const baseURL =
   nodeEnv === "production"
     ? (process.env.NEXT_PUBLIC_API_BASE_URL_PROD ??
