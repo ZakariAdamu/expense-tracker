@@ -4,16 +4,7 @@ import { sidebarStyles, cn } from "../assets/styles";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 // import { useSidebar } from "../context/SidebarContext";
-import {
-  ArrowDown,
-  ArrowUp,
-  HelpCircle,
-  Home,
-  LogOut,
-  Menu,
-  User,
-  X,
-} from "lucide-react";
+import { HelpCircle, Home, LogOut, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { propUser } from "../types/types";
 import { useAuth } from "@/app/context/AuthContext";
@@ -41,8 +32,10 @@ const Sidebar = ({
   setIsCollapsed: (collapsed: boolean) => void;
 }) => {
   const pathname = usePathname();
-  const sidebarRef = useRef<HTMLDivElement>(null);
+  const desktopSidebarRef = useRef<HTMLDivElement>(null);
+  const mobileSidebarRef = useRef<HTMLDivElement>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [isSidebarOpened, setIsSidebarOpened] = useState(false);
   const [activeHover, setActiveHover] = useState<string | null>(null);
   const { user: ctxUser, logout: ctxLogout } = useAuth();
   const { name: username = "User", email = "user@expensetracker.com" } =
@@ -51,10 +44,11 @@ const Sidebar = ({
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "auto";
+    document.body.style.overflow = isSidebarOpened ? "hidden" : "auto";
     return () => {
       document.body.style.overflow = "auto";
     };
-  }, [mobileOpen]);
+  }, [mobileOpen, isSidebarOpened]);
 
   const handleLogout = () => {
     try {
@@ -67,17 +61,30 @@ const Sidebar = ({
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as Node;
+
       if (
         mobileOpen &&
-        sidebarRef.current &&
-        !sidebarRef.current.contains(e.target as Node)
+        mobileSidebarRef.current &&
+        !mobileSidebarRef.current.contains(target)
       ) {
         setMobileOpen(false);
+        setIsSidebarOpened(false);
+        return;
+      }
+
+      if (
+        !mobileOpen &&
+        !isCollapsed &&
+        desktopSidebarRef.current &&
+        !desktopSidebarRef.current.contains(target)
+      ) {
+        setIsCollapsed(true);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [mobileOpen]);
+  }, [isCollapsed, mobileOpen, setIsCollapsed]);
 
   const toggleSidebar = () => {
     setIsCollapsed(!isCollapsed);
@@ -136,7 +143,7 @@ const Sidebar = ({
   return (
     <>
       <motion.div
-        ref={sidebarRef}
+        ref={desktopSidebarRef}
         className={sidebarStyles.sidebarContainer.base}
         initial={{ x: -100, opacity: 0 }}
         animate={{ x: 0, opacity: 1, width: isCollapsed ? 80 : 256 }}
@@ -275,7 +282,7 @@ const Sidebar = ({
             />
 
             <motion.div
-              ref={sidebarRef}
+              ref={mobileSidebarRef}
               className={sidebarStyles.mobileSidebar.base}
               initial={{ x: "-100%" }}
               animate={{ x: 0 }}
