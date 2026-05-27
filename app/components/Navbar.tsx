@@ -75,10 +75,10 @@ const Navbar = ({ user: propUser, onLogout }: NavbarProps) => {
               </div>
               <div className={navbarStyles.userTextContainer}>
                 <p className={navbarStyles.userName} suppressHydrationWarning>
-                  {user?.name || "User"}
+                  {user?.name || ""}
                 </p>
                 <p className={navbarStyles.userEmail} suppressHydrationWarning>
-                  {user?.email || "user@expensetracker.com"}
+                  {user?.email || ""}
                 </p>
               </div>
               <ChevronDown
