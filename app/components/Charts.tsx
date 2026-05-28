@@ -29,9 +29,10 @@ const timeframeLabels: Record<TimeFrame, string> = {
   daily: "Today",
   weekly: "This Week",
   monthly: "This Month",
+  yearly: "This Year",
 };
 
-const timeframeOptions: TimeFrame[] = ["daily", "weekly", "monthly"];
+const timeframeOptions: TimeFrame[] = ["daily", "weekly", "monthly", "yearly"];
 
 type ChartPoint = {
   name: string;

@@ -1,7 +1,11 @@
-import React from "react";
+import IncomePage from "../../components/IncomePage";
 
-const IncomePage = () => {
-  return <div>IncomePage</div>;
+const page = () => {
+  return (
+    <>
+      <IncomePage />
+    </>
+  );
 };
 
-export default IncomePage;
+export default page;

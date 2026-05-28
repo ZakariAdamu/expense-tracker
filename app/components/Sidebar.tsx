@@ -3,8 +3,15 @@ import { usePathname } from "next/navigation";
 import { sidebarStyles, cn } from "../assets/styles";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState, type ReactNode } from "react";
-// import { useSidebar } from "../context/SidebarContext";
-import { HelpCircle, Home, LogOut, Menu, X } from "lucide-react";
+import {
+  ArrowDownWideNarrow,
+  ArrowUpWideNarrow,
+  HelpCircle,
+  Home,
+  LogOut,
+  Menu,
+  X,
+} from "lucide-react";
 import Link from "next/link";
 import { propUser } from "../types/types";
 import { useAuth } from "@/app/context/AuthContext";
@@ -17,8 +24,12 @@ type MenuItem = {
 
 const MENU_ITEMS: MenuItem[] = [
   { text: "Dashboard", path: "/dashboard", icon: <Home size={20} /> },
-  // { text: "Income", path: "/income", icon: <ArrowUp size={20} /> },
-  // { text: "Expenses", path: "/expenses", icon: <ArrowDown size={20} /> },
+  { text: "Income", path: "/income", icon: <ArrowUpWideNarrow size={20} /> },
+  {
+    text: "Expenses",
+    path: "/expenses",
+    icon: <ArrowDownWideNarrow size={20} />,
+  },
   // { text: "Profile", path: "/profile", icon: <User size={20} /> },
 ];
 
@@ -38,9 +49,11 @@ const Sidebar = ({
   const [isSidebarOpened, setIsSidebarOpened] = useState(false);
   const [activeHover, setActiveHover] = useState<string | null>(null);
   const { user: ctxUser, logout: ctxLogout } = useAuth();
-  const { name: username = "User", email = "user@expensetracker.com" } =
-    (user ?? ctxUser) || { name: "User", email: "user@expensetracker.com" };
-  const initial = (username && username.charAt(0).toUpperCase()) || "U";
+  const { name: username = "", email = "" } = (user ?? ctxUser) || {
+    name: "",
+    email: "",
+  };
+  const initial = (username && username.charAt(0).toUpperCase()) || "";
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "auto";

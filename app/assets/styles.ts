@@ -164,7 +164,7 @@ export const incomeStyles = {
   // Filter Section
   filterContainer: "flex flex-col sm:flex-row gap-2 md:gap-3 w-full sm:w-auto",
   filterSelect:
-    "appearance-none bg-white border border-gray-300 rounded-lg pl-3 pr-8 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent w-full",
+    "appearance-none bg-white border border-gray-300 rounded-lg pl-3 pr-8 py-2 text-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent w-full",
   exportButton:
     "flex items-center justify-center gap-1 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 px-3 py-2 rounded-lg transition-all text-sm hover:shadow-md w-full sm:w-auto",
 
@@ -480,7 +480,7 @@ export const navbarStyles = {
   // Layout and container styles
   header: "sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm",
   container:
-    "flex items-center justify-between gap-40 w-full px-4 py-3 md:px-8 zzmax-w-7xl mx-auto",
+    "flex items-center justify-between gap-40 w-full px-4 py-3 md:px-8 mx-auto",
 
   // Logo styles
   logoContainer: "flex items-center lg:ml-10 gap-0 cursor-pointer",
@@ -488,7 +488,7 @@ export const navbarStyles = {
 
   // Text styles
   logoText:
-    "lg:text-3xl md:text-3xl w-full text-xl text-gray-900 font-[550] lobster-regular",
+    "lg:text-3xl md:text-3xl w-full text-xl text-gray-900 font-normal tracking-wide",
 
   // User profile styles
   userContainer: "relative lg:ml-auto lg:mr-20",
@@ -603,9 +603,9 @@ export const transactionItemStyles = {
 
   // Input styles
   input: (hasError: boolean, classes: Record<string, string>) =>
-    `w-full bg-white rounded-lg px-3 py-2 focus:outline-none focus:ring-1 ${hasError ? "border-red-500 ring-red-500" : `${classes.border} ${classes.ring}`}`,
+    `w-full bg-white text-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 ${hasError ? "border-red-500 ring-red-500" : `${classes.border} ${classes.ring}`}`,
   amountInput: (hasError: boolean, classes: Record<string, string>) =>
-    `w-full max-w-[120px] bg-white rounded-lg px-3 py-2 focus:outline-none focus:ring-1 ${hasError ? "border-red-500 ring-red-500" : `${classes.border} ${classes.ring}`}`,
+    `w-full max-w-[120px] bg-white text-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 ${hasError ? "border-red-500 ring-red-500" : `${classes.border} ${classes.ring}`}`,
 
   // Error styles
   errorText: "text-xs text-red-600 mt-1",
