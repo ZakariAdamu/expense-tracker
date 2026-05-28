@@ -26,5 +26,12 @@ export function proxy(request: NextRequest) {
 
 // Ensures the middleware runs only on the routes we care about
 export const config = {
-  matcher: ["/dashboard/:path*", "/income/:path*", "/expenses/:path*"],
+  matcher: [
+    "/dashboard",
+    "/dashboard/:path*",
+    "/income",
+    "/income/:path*",
+    "/expenses",
+    "/expenses/:path*",
+  ],
 };
