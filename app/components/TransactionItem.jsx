@@ -37,8 +37,8 @@ const TransactionItem = ({
 
     if (amt === "") {
       nextErrors.amount = "Amount is required.";
-    } else if (Number(amt) <= 0) {
-      nextErrors.amount = "Amount must be greater than 0.";
+    } else if (isNaN(Number(amt)) || Number(amt) <= 0) {
+      nextErrors.amount = "Amount must be a valid number greater than 0.";
     }
 
     setErrors(nextErrors);

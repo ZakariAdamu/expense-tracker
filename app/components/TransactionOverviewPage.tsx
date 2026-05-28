@@ -115,19 +115,26 @@ export type TransactionOverviewPageConfig = {
 };
 
 function toIsoWithClientTime(dateValue: string | undefined) {
-  if (!dateValue) {
-    return new Date().toISOString();
-  }
-
-  if (typeof dateValue === "string" && dateValue.length === 10) {
-    const now = new Date();
-    const hhmmss = now.toTimeString().slice(0, 8);
-    const combined = new Date(`${dateValue}T${hhmmss}`);
-    return combined.toISOString();
-  }
-
   try {
-    return new Date(dateValue).toISOString();
+    if (!dateValue) {
+      return new Date().toISOString();
+    }
+
+    if (typeof dateValue === "string" && dateValue.length === 10) {
+      const now = new Date();
+      const hhmmss = now.toTimeString().slice(0, 8);
+      const combined = new Date(`${dateValue}T${hhmmss}`);
+      if (isNaN(combined.getTime())) {
+        return new Date().toISOString();
+      }
+      return combined.toISOString();
+    }
+
+    const parsed = new Date(dateValue);
+    if (isNaN(parsed.getTime())) {
+      return new Date().toISOString();
+    }
+    return parsed.toISOString();
   } catch {
     return new Date().toISOString();
   }
@@ -312,7 +319,12 @@ function TransactionOverviewPage({
   }, [token]);
 
   const isDateInRange = useCallback((date: string, start: Date, end: Date) => {
-    const transactionDate = new Date(date);
+    const parts = date.split("T")[0].split("-");
+    const transactionDate =
+      parts.length === 3
+        ? new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]))
+        : new Date(date);
+
     const startDate = new Date(start);
     const endDate = new Date(end);
 
@@ -376,7 +388,11 @@ function TransactionOverviewPage({
     }));
 
     filteredTransactions.forEach((transaction: DashboardTransaction) => {
-      const transDate = new Date(transaction.date);
+      const parts = transaction.date.split("T")[0].split("-");
+      const transDate =
+        parts.length === 3
+          ? new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]))
+          : new Date(transaction.date);
       const currentTimeFrame = timeFrame as TimeFrame;
       const point = data.find((entry: ChartPoint) =>
         currentTimeFrame === "daily"
@@ -434,7 +450,7 @@ function TransactionOverviewPage({
     async (range = timeFrame ?? "monthly") => {
       try {
         const response = await axios.get(
-          `https://expense-tracker-api-1-hkrb.onrender.com/api/${config.apiPath}`,
+          `process.env.NEXT_PUBLIC_API_BASE_URL_PROD/${config.apiPath}`,
           {
             headers: getAuthHeaders(),
             params: { range },
