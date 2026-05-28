@@ -480,7 +480,7 @@ export const navbarStyles = {
   // Layout and container styles
   header: "sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm",
   container:
-    "flex items-center justify-between gap-40 w-full px-4 py-3 md:px-8 zzmax-w-7xl mx-auto",
+    "flex items-center justify-between gap-40 w-full px-4 py-3 md:px-8 mx-auto",
 
   // Logo styles
   logoContainer: "flex items-center lg:ml-10 gap-0 cursor-pointer",
@@ -488,7 +488,7 @@ export const navbarStyles = {
 
   // Text styles
   logoText:
-    "lg:text-3xl md:text-3xl w-full text-xl text-gray-900 font-[550] lobster-regular",
+    "lg:text-3xl md:text-3xl w-full text-xl text-gray-900 font-normal tracking-wide",
 
   // User profile styles
   userContainer: "relative lg:ml-auto lg:mr-20",

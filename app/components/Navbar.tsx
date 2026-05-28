@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import { Pinyon_Script } from "next/font/google";
 import { navbarStyles } from "../assets/styles";
 import img1 from "../assets/logo.png";
 import { useRouter } from "next/navigation";
@@ -7,6 +8,11 @@ import { useEffect, useRef, useState } from "react";
 import { ChevronDown, LogOut, User } from "lucide-react";
 import { NavbarProps } from "../types/types";
 import { useAuth } from "@/app/context/AuthContext";
+
+const pinyonScript = Pinyon_Script({
+  subsets: ["latin"],
+  weight: "400",
+});
 
 const Navbar = ({ user: propUser, onLogout }: NavbarProps) => {
   const router = useRouter();
@@ -58,7 +64,11 @@ const Navbar = ({ user: propUser, onLogout }: NavbarProps) => {
           <div className={navbarStyles.logoImage}>
             <Image src={img1} alt="logo" width={50} height={50} />
           </div>
-          <span className={navbarStyles.logoText}>Expense Tracker</span>
+          <span
+            className={`${navbarStyles.logoText} ${pinyonScript.className}`}
+          >
+            Expense Tracker
+          </span>
         </div>
         {/* If user is logged in */}
         {user && (
@@ -69,7 +79,7 @@ const Navbar = ({ user: propUser, onLogout }: NavbarProps) => {
                   className={navbarStyles.userAvatar}
                   suppressHydrationWarning
                 >
-                  {user?.name?.[0]?.toUpperCase() || "U"}
+                  {user?.name?.[0]?.toUpperCase() || ""}
                 </div>
                 <div className={navbarStyles.statusIndicator}></div>
               </div>

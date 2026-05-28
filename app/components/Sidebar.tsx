@@ -28,7 +28,7 @@ const MENU_ITEMS: MenuItem[] = [
   { text: "Dashboard", path: "/dashboard", icon: <Home size={20} /> },
   { text: "Income", path: "/income", icon: <ArrowUp size={20} /> },
   { text: "Expenses", path: "/expenses", icon: <ArrowDown size={20} /> },
-  { text: "Profile", path: "/profile", icon: <User size={20} /> },
+  // { text: "Profile", path: "/profile", icon: <User size={20} /> },
 ];
 
 const Sidebar = ({
