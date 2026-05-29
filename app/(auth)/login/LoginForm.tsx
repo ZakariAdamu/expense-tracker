@@ -91,13 +91,18 @@ const LoginPage = () => {
               ? { name: responseUser.name, email: values.email.trim() }
               : null;
 
-        if (token) {
-          setAuth({ user, token }, rememberMe);
+        if (!token) {
+          toast.error(
+            "Login succeeded but no token was returned. Please try again.",
+          );
+          return;
         }
+
+        setAuth({ user, token }, rememberMe);
 
         toast.success("Signed in successfully.");
         reset({ email: values.email.trim(), password: "" });
-        router.push("/dashboard");
+        router.replace("/dashboard");
         return;
       }
 
