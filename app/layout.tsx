@@ -5,6 +5,7 @@ import { styles } from "./assets/styles";
 import { Metadata } from "next";
 import Providers from "./providers";
 import DashboardLayout from "./(dashboard-segment)/layout";
+import { ThemeProvider } from "./components/theme-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,11 +33,14 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body suppressHydrationWarning className={styles.layout.root}>
-        <Providers>
-          {/* <DashboardLayout> */}
-          {children}
-          {/* </DashboardLayout> */}
-        </Providers>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Providers>{children}</Providers>
+        </ThemeProvider>
       </body>
     </html>
   );
