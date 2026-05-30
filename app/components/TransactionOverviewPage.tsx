@@ -720,7 +720,7 @@ function TransactionOverviewPage({
 				border border-gray-100 xl:pr-12 2xl:px-10`}
       >
         <div className="flex flex-col items-end w-full gap-8 md:gap-4 mb-4 md:mb-6">
-          <div className="flex flex-row w-full justify-between gap-22">
+          <div className="flex flex-row w-full justify-between gap-20">
             <header className="mr-auto">
               <h1 className="text-gray-700 text-lg font-semibold">
                 {config.entityLabel} Overview

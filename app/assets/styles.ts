@@ -140,7 +140,6 @@ export const incomeStyles = {
     "bg-white rounded-lg  md:rounded-xl p-4 -mx-7 lg:-mx-7 overflow-x-hidden md:p-6 mb-6 md:mb-8 shadow-sm",
   header:
     "flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 md:gap-4 mb-4 md:mb-5",
-  headerDiv: "flex items-start justify-between gap-18",
   headerTitle: "text-xl md:text-2xl lg:text-3xl font-bold text-gray-800",
   headerSubtitle: "text-gray-600 mt-1 text-sm md:text-base",
   addButton:
@@ -257,7 +256,6 @@ export const expensePageStyles = {
     "bg-white rounded-2xl p-5 -mx-4 lg:-mx-0 md:-mx-5 shadow-sm border border-gray-100 relative overflow-hidden",
   transactionsHeader:
     "flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 md:gap-4 mb-4 md:mb-5",
-  // "flex flex-col w-full zgap-18 md:gap-4 mb-4 md:mb-6",
   transactionsTitle:
     "text-lg md:text-xl font-bold text-gray-800 mb-4 md:mb-5 flex items-center gap-2 md:gap-3",
   filterSelect:
