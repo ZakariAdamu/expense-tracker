@@ -137,13 +137,13 @@ export const incomeStyles = {
   // Layout
   wrapper: "space-y-4 md:space-y-6 p-3 md:p-4 max-w-7xl mx-auto",
   headerContainer:
-    "bg-white rounded-lg md:rounded-xl p-4 -mx-7 lg:-mx-7 overflow-x-hidden md:p-6 mb-6 md:mb-8 shadow",
+    "bg-white rounded-lg  md:rounded-xl p-4 -mx-7 lg:-mx-7 overflow-x-hidden md:p-6 mb-6 md:mb-8 shadow-sm",
   header:
-    "flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 md:gap-4 mb-4 md:mb-6",
+    "flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 md:gap-4 mb-4 md:mb-5",
   headerTitle: "text-xl md:text-2xl lg:text-3xl font-bold text-gray-800",
   headerSubtitle: "text-gray-600 mt-1 text-sm md:text-base",
   addButton:
-    "flex items-center gap-2 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white px-3 py-2 md:px-4 md:py-3 rounded-lg md:rounded-xl transition-all shadow-md hover:shadow-lg font-medium text-sm md:text-base",
+    "flex items-center h-10 md:h-12 cursor-pointer w-[124px] md:w-[150px] px-1 gap-1 py-1 md:px-4 md:py-3 ml-auto md:gap-2 mt-1.5 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white rounded-lg md:rounded-xl transition-all shadow-md hover:shadow-lg font-medium text-sm md:text-base",
 
   // Summary Cards
   summaryGrid:
@@ -164,9 +164,9 @@ export const incomeStyles = {
   // Filter Section
   filterContainer: "flex flex-col sm:flex-row gap-2 md:gap-3 w-full sm:w-auto",
   filterSelect:
-    "appearance-none bg-white border border-gray-300 rounded-lg pl-3 pr-8 py-2 text-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent w-full",
+    "appearance-none bg-white border border-gray-300 rounded-lg pl-3 pr-8 py-2 text-gray-700 cursor-pointer text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent w-full",
   exportButton:
-    "flex items-center justify-center gap-1 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 px-3 py-2 rounded-lg transition-all text-sm hover:shadow-md w-full sm:w-auto",
+    "flex items-center cursor-pointer justify-center gap-1 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 px-3 py-2 rounded-lg transition-all text-sm hover:shadow-md w-full sm:w-auto",
 
   // Transaction Items
   transactionList: "space-y-3 -mx-3 lg:-mx-0 md:-mx-0",
@@ -235,7 +235,7 @@ export const expensePageStyles = {
   headerTitle: "text-2xl md:text-3xl font-bold text-gray-800",
   headerSubtitle: "text-gray-600 mt-1",
   addButton:
-    "flex items-center gap-2 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white px-4 py-3 rounded-xl transition-all shadow-md hover:shadow-lg font-medium",
+    "flex items-center w-[200px] sm:w-fit sm:px-4  h-12 sm:h-12 cursor-pointer px-1 py-3 gap-2 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white rounded-xl transition-all shadow-md hover:shadow-lg font-medium",
 
   // Financial cards grid
   cardsGrid:
@@ -248,7 +248,7 @@ export const expensePageStyles = {
     "flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-5",
   chartTitle: "text-xl font-bold text-gray-800 mb-5 flex items-center gap-3",
   exportButton:
-    "flex items-center gap-1 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 px-4 py-2 rounded-lg transition-all text-sm hover:shadow-md",
+    "flex items-center cursor-pointer gap-1 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 px-4 py-2 rounded-lg transition-all text-sm hover:shadow-md",
   chart: "h-80",
 
   // Transactions container
@@ -259,7 +259,7 @@ export const expensePageStyles = {
   transactionsTitle:
     "text-lg md:text-xl font-bold text-gray-800 mb-4 md:mb-5 flex items-center gap-2 md:gap-3",
   filterSelect:
-    "appearance-none bg-white border border-gray-300 rounded-lg pl-3 pr-8 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent w-full",
+    "appearance-none bg-white text-gray-700 cursor-pointer border border-gray-300 rounded-lg pl-3 pr-8 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent w-full",
 
   // Transaction items
   transactionsList: "space-y-3 -mx-2 lg:-mx-0 md:-mx-0",

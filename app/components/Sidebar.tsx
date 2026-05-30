@@ -165,7 +165,7 @@ const Sidebar = ({
         <div className={sidebarStyles.sidebarInner.base}>
           <button
             onClick={toggleSidebar}
-            className={sidebarStyles.toggleButton.base}
+            className={`${sidebarStyles.toggleButton.base} cursor-pointer`}
           >
             <motion.div
               initial={{ rotate: 0 }}
