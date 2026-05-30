@@ -73,7 +73,10 @@ const Navbar = ({ user: propUser, onLogout }: NavbarProps) => {
         {/* If user is logged in */}
         {user && (
           <div className={navbarStyles.userContainer} ref={menuRef}>
-            <button onClick={toggleMenu} className={navbarStyles.userButton}>
+            <button
+              onClick={toggleMenu}
+              className={`${navbarStyles.userButton} cursor-pointer`}
+            >
               <div className="relative">
                 <div
                   className={navbarStyles.userAvatar}

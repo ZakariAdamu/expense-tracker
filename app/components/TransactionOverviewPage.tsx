@@ -37,6 +37,7 @@ import FinancialCard from "./FinancialCard";
 import TransactionItem from "./TransactionItem";
 import TimeFrameSelector from "./Timeframe";
 import { generateChartPoints, getTimeFrameRange } from "./Helper";
+import { styles } from "../assets/styles";
 
 type ChartPoint = {
   date: Date;
@@ -49,7 +50,7 @@ type ChartPoint = {
 type TransactionPageStyles = {
   wrapper: string;
   headerCard: string;
-  headerRow: string;
+  headerCol: string;
   headerTitle: string;
   headerSubtitle: string;
   addButton: string;
@@ -264,8 +265,10 @@ const FilterSection = ({
 
 function TransactionOverviewPage({
   config,
+  sidebarCollapsed,
 }: {
   config: TransactionOverviewPageConfig;
+  sidebarCollapsed: boolean;
 }) {
   const {
     transactions: outletTransactions = [],
@@ -561,7 +564,7 @@ function TransactionOverviewPage({
       };
 
       await axios.put(
-        `https://expense-tracker-api-1-hkrb.onrender.com/api/${config.apiPath}/${editingId}`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL_PROD}/${config.apiPath}/${editingId}`,
         payload,
         {
           headers: { "Content-Type": "application/json", ...getAuthHeaders() },
@@ -601,7 +604,7 @@ function TransactionOverviewPage({
       try {
         setLoading(true);
         await axios.delete(
-          `https://expense-tracker-api-1-hkrb.onrender.com/api/${config.apiPath}/${id}`,
+          `${process.env.NEXT_PUBLIC_API_BASE_URL_PROD}/${config.apiPath}/${id}`,
           {
             headers: getAuthHeaders(),
           },
@@ -658,7 +661,7 @@ function TransactionOverviewPage({
   const handleExport = useCallback(async () => {
     try {
       const response = await axios.get(
-        `https://expense-tracker-api-1-hkrb.onrender.com/api/${config.apiPath}/export/csv`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL_PROD}/${config.apiPath}/export/csv`,
         {
           headers: getAuthHeaders(),
           responseType: "blob",
@@ -711,34 +714,39 @@ function TransactionOverviewPage({
   ]);
 
   return (
-    <div className={config.styles.wrapper}>
-      <div className={config.styles.headerCard}>
-        <div className={config.styles.headerRow}>
-          <div>
-            <h1 className={config.styles.headerTitle}>
-              {config.entityLabel} Overview
-            </h1>
-            <p className={config.styles.headerSubtitle}>
-              Track and manage your {config.entityLabelLower} sources
-            </p>
+    <div className={`${styles.layout.mainContainer(sidebarCollapsed)}`}>
+      <div
+        className={`bg-white mb-4 rounded-xl md:rounded-2xl 2xl:mx-10 p-4 md:p-6 shadow-sm
+				border border-gray-100 xl:pr-12 2xl:px-10`}
+      >
+        <div className="flex flex-col items-end w-full gap-8 md:gap-4 mb-4 md:mb-6">
+          <div className="flex flex-row w-full justify-between gap-22">
+            <header className="mr-auto">
+              <h1 className="text-gray-700 text-lg font-semibold">
+                {config.entityLabel} Overview
+              </h1>
+              <p className={config.styles.headerSubtitle}>
+                Track and manage your {config.entityLabelLower} sources
+              </p>
+            </header>
+            <button
+              onClick={() => setShowModal(true)}
+              className={`${config.styles.addButton}`}
+              disabled={loading}
+            >
+              <Plus size={18} className="md:size-5" />{" "}
+              {loading ? "Processing..." : `Add ${config.entityLabel}`}
+            </button>
           </div>
-          <button
-            onClick={() => setShowModal(true)}
-            className={config.styles.addButton}
-            disabled={loading}
-          >
-            <Plus size={18} className="md:size-5" />{" "}
-            {loading ? "Processing..." : `Add ${config.entityLabel}`}
-          </button>
-        </div>
 
-        <div className={config.styles.timeFrameContainer}>
-          <TimeFrameSelector
-            timeFrame={timeFrame}
-            setTimeFrame={setTimeFrame}
-            options={["daily", "weekly", "monthly", "yearly"]}
-            color={config.timeFrameColor}
-          />
+          <div className="flex w-full mt-4 px-0 md:px-0">
+            <TimeFrameSelector
+              timeFrame={timeFrame}
+              setTimeFrame={setTimeFrame}
+              options={["daily", "weekly", "monthly", "yearly"]}
+              color={config.timeFrameColor}
+            />
+          </div>
         </div>
       </div>
 

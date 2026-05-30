@@ -165,11 +165,9 @@ export default function DashboardPage({
     return <span>Showing {outletTransactions.length} transactions</span>;
   }
 
-  console.log(user);
-
   return (
-    <div className={styles.layout.mainContainer(sidebarCollapsed)}>
-      <div className={styles.header.container}>
+    <div className={`${styles.layout.mainContainer(sidebarCollapsed)}`}>
+      <div className={`${styles.header.container}`}>
         <div>
           <h1 className="text-black/90 text-2xl font-bold">Dashboard</h1>
           <p className={styles.header.subtitle}>

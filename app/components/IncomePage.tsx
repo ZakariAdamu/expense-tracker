@@ -17,19 +17,18 @@ const incomePageConfig: TransactionOverviewPageConfig = {
   categoryIcons: CATEGORY_ICONS_Inc,
   styles: {
     wrapper:
-      "w-full max-w-7xl mx-auto space-y-4 md:space-y-6 px-3 py-3 md:px-6 md:py-4",
+      "w-full grid max-w-7xl mx-auto space-y-4 md:space-y-6 px-3 py-3 md:px-6 md:py-4",
     headerCard:
-      "bg-white rounded-xl p-4 md:p-6 shadow-sm border border-gray-100 overflow-hidden",
-    headerRow: incomeStyles.header,
+      "bg-white rounded-xl grid-cols-1 p-4 md:p-6 shadow-sm border border-gray-100 overflow-hidden",
+    headerCol: incomeStyles.header,
     headerTitle: incomeStyles.headerTitle,
     headerSubtitle: incomeStyles.headerSubtitle,
     addButton: incomeStyles.addButton,
-    timeFrameContainer:
-      "flex w-full justify-center md:justify-end mt-4 px-0 md:px-0",
+    timeFrameContainer: "flex w-full ml-auto mt-4 px-0 md:px-0",
     summaryGrid:
-      "grid grid-cols-1 gap-4 md:gap-5 md:grid-cols-3 lg:grid-cols-3",
+      "grid grid-cols-1 gap-4 md:gap-5 md:grid-cols-3 lg:grid-cols-3 2xl:px-10",
     chartContainer:
-      "hidden md:block bg-white rounded-xl p-4 md:p-6 shadow-sm border border-gray-100",
+      "hidden md:block mt-4 bg-white rounded-xl p-4 md:p-6 shadow-sm border border-gray-100 2xl:mx-10",
     chartHeaderRow: incomeStyles.chartHeaderContainer,
     chartTitle: incomeStyles.chartTitle,
     chartHeight: "h-72 md:h-80",
@@ -39,7 +38,7 @@ const incomePageConfig: TransactionOverviewPageConfig = {
     filterIcon: incomeStyles.filterIcon,
     exportButton: incomeStyles.exportButton,
     transactionsCard:
-      "bg-white rounded-xl md:rounded-2xl p-4 md:p-6 shadow-sm border border-gray-100 relative overflow-hidden",
+      "bg-white mt-4 rounded-xl md:rounded-2xl 2xl:mx-10 p-4 md:p-6 shadow-sm border border-gray-100 relative overflow-hidden",
     transactionsHeaderRow: incomeStyles.header,
     transactionsTitle: incomeStyles.sectionTitle,
     transactionsList: "space-y-3 -mx-3 md:mx-0",
@@ -74,5 +73,5 @@ const incomePageConfig: TransactionOverviewPageConfig = {
 };
 
 export default function IncomePage() {
-  return <TransactionOverviewPage config={incomePageConfig} />;
+  return <TransactionOverviewPage sidebarCollapsed config={incomePageConfig} />;
 }

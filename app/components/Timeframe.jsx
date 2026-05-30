@@ -15,7 +15,7 @@ const TimeFrameSelector = ({
 
   const styleClass = {
     default:
-      "flex gap-2 bg-white p-1 -mx-11 lg:-mx-0 md:-mx-0 rounded-xl border border-gray-200",
+      "flex gap-2 bg-white p-1 ml-auto rounded-xl border border-gray-200",
     minimal: "flex gap-2",
   }[style];
 
