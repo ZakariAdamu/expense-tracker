@@ -88,16 +88,10 @@ const SignupForm = () => {
       const response = await signupMutation.mutateAsync(values);
 
       if (response.status === "success") {
-        sessionStorage.setItem(
-          "signupPrefill",
-          JSON.stringify({
-            email: values.email.trim(),
-            password: values.password,
-          }),
-        );
-        toast.success("Account created successfully.");
+        sessionStorage.setItem("verificationEmail", values.email.trim());
+        toast.success("Verify your email to continue.");
         reset();
-        router.push("/login");
+        router.replace("/verify-email");
         return;
       }
 
@@ -213,7 +207,7 @@ const SignupForm = () => {
                   className={`${signupStyles.passwordInput} text-black placeholder:text-gray-400 focus:outline-0 ${
                     errors.password ? "border-red-300" : "border-gray-200"
                   }`}
-                  placeholder="••••••••••"
+                  placeholder="Enter your password"
                 />
                 <button
                   type="button"
@@ -328,7 +322,7 @@ const SignupForm = () => {
                       ? "border-red-300"
                       : "border-gray-200"
                   }`}
-                  placeholder="••••••••••"
+                  placeholder="Confirm your password"
                 />
                 <button
                   type="button"

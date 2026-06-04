@@ -151,7 +151,9 @@ const Navbar = ({ user: propUser, onLogout }: NavbarProps) => {
               )}
             </>
             {/* Mode Toggle */}
-            <ModeToggle />
+            <span className="hidden">
+              <ModeToggle />
+            </span>
           </div>
         )}
       </div>

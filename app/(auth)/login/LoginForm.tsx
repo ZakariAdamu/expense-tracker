@@ -5,7 +5,7 @@ import { Eye, EyeOff, Lock, Mail, User } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { z } from "zod";
+import { email, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -45,25 +45,21 @@ const LoginPage = () => {
     },
   });
 
+  // const storedLocal = localStorage.getItem("signupPrefill");
   useEffect(() => {
-    const storedLocal = localStorage.getItem("signupPrefill");
-    const storedSession = sessionStorage.getItem("signupPrefill");
-    const stored = storedLocal ?? storedSession;
+    const storedSession = sessionStorage.getItem("verifiedEmail") ?? "";
+    const stored = storedSession;
     if (!stored) {
       return;
     }
     try {
-      const parsed = JSON.parse(stored) as {
-        email?: string;
-        password?: string;
-      };
+      const parsed = JSON.parse(stored);
       reset({
         email: parsed.email ?? "",
         password: parsed.password ?? "",
       });
-    } finally {
-      localStorage.removeItem("signupPrefill");
-      sessionStorage.removeItem("signupPrefill");
+    } catch (error) {
+      console.error("Failed to parse stored form data:", error);
     }
   }, [reset]);
 
@@ -81,15 +77,16 @@ const LoginPage = () => {
           (response.data as { accessToken?: string; token?: string })?.token;
         const responseUser = (
           response.data as {
-            user?: { name?: string; email?: string };
+            user?: { name?: string; email?: string; isVerified?: boolean };
           }
         ).user;
-        const user =
-          responseUser?.name && responseUser.email
-            ? { name: responseUser.name, email: responseUser.email }
-            : responseUser?.name
-              ? { name: responseUser.name, email: values.email.trim() }
-              : null;
+        const user = responseUser
+          ? {
+              name: responseUser.name ?? null,
+              email: responseUser.email ?? values.email.trim(),
+              isVerified: responseUser.isVerified,
+            }
+          : null;
 
         if (!token) {
           toast.error(
@@ -108,9 +105,24 @@ const LoginPage = () => {
 
       toast.error(response.message ?? "Login failed. Please try again.");
     } catch (error) {
+      const response = (
+        error as {
+          response?: { status?: number; data?: { message?: string } };
+        }
+      )?.response;
       const message =
-        (error as { response?: { data?: { message?: string } } })?.response
-          ?.data?.message ?? "Unable to sign in. Please try again.";
+        response?.data?.message ?? "Unable to sign in. Please try again.";
+
+      if (
+        response?.status === 401 &&
+        message.toLowerCase().includes("email not verified")
+      ) {
+        router.replace(
+          `/verify-request?email=${encodeURIComponent(values.email.trim())}`,
+        );
+        return;
+      }
+
       toast.error(message);
     }
   };

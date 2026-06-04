@@ -4,7 +4,6 @@ import "./globals.css";
 import { styles } from "./assets/styles";
 import { Metadata } from "next";
 import Providers from "./providers";
-import DashboardLayout from "./(dashboard-segment)/layout";
 import { ThemeProvider } from "./components/theme-provider";
 
 const geistSans = Geist({
@@ -35,8 +34,8 @@ export default function RootLayout({
       <body suppressHydrationWarning className={styles.layout.root}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
-          enableSystem
+          defaultTheme="light"
+          enableSystem={false}
           disableTransitionOnChange
         >
           <Providers>{children}</Providers>

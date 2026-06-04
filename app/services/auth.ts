@@ -4,9 +4,9 @@ import {
   LoginPayload,
   LoginResponseData,
   OtpRequestData,
-  OtpVerifyData,
   ForgotPasswordData,
   OtpMailRequestData,
+  EmailVerificationData,
 } from "../types/authType";
 import { post } from "./axios";
 import { ApiResponse } from "../types/apiType";
@@ -42,23 +42,23 @@ export const AuthService = {
   requestEmailVerification: async (
     email: string,
   ): Promise<ApiResponse<OtpMailRequestData>> => {
-    return await post<OtpMailRequestData>("/auth/request-email-verification", {
+    return await post<OtpMailRequestData>("/users/resend-verification-code", {
       email,
     });
   },
 
-  verifyOtp: async (payload: {
-    email: string;
-    otp: string;
-  }): Promise<ApiResponse<OtpVerifyData>> => {
-    return await post<OtpVerifyData>("/auth/verify-otp", payload);
+  verifyEmail: async (payload: {
+    email?: string;
+    code: string;
+  }): Promise<ApiResponse<EmailVerificationData>> => {
+    return await post<EmailVerificationData>("/users/verify-email", payload);
   },
 
   completeEmailVerification: async (payload: {
     token: string;
-    otp: string;
-  }): Promise<ApiResponse<OtpVerifyData>> => {
-    return await post<OtpVerifyData>(
+    code: string;
+  }): Promise<ApiResponse<EmailVerificationData>> => {
+    return await post<EmailVerificationData>(
       "/auth/complete-email-verification",
       payload,
     );
