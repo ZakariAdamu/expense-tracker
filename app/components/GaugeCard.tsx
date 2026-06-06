@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ResponsiveContainer,
   RadialBarChart,
@@ -54,9 +54,22 @@ const GaugeCard = ({
     : colorInfo.text || "text-gray-800";
   const percentColor = isNegative ? "text-red-500" : "text-gray-500";
 
-  const [mounted, setMounted] = useState(false);
-  // eslint-disable-next-line
-  useLayoutEffect(() => setMounted(true), []);
+  function useMounted() {
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+      setMounted(true);
+    }, []);
+
+    return mounted;
+  }
+
+  const mounted = useMounted();
+
+  if (!mounted) {
+    // Avoid rendering chart on server or before mount to prevent hydration issues
+    return null;
+  }
 
   return (
     <div className="bg-white rounded-xl p-5 -mx-3 lg:mx-0 md:-mx-5 shadow-sm flex flex-col items-center border border-gray-100">

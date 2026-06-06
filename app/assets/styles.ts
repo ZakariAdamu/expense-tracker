@@ -504,8 +504,8 @@ export const navbarStyles = {
   userName:
     "text-sm font-medium text-gray-800 dark:text-slate-100 truncate max-w-[120px]",
   userEmail: "text-xs text-gray-500 dark:text-slate-400 truncate max-w-[120px]",
-  chevronIcon: (isOpen: boolean) =>
-    `w-4 h-4 text-gray-500 dark:text-slate-400 transition-transform ${isOpen ? "rotate-180" : ""}`,
+  chevronIcon:
+    "w-4 h-4 text-gray-500 dark:text-slate-400 transition-transform}",
 
   // Dropdown menu styles
   dropdownMenu:

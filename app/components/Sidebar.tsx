@@ -103,6 +103,12 @@ const Sidebar = ({
     setIsCollapsed(!isCollapsed);
   };
 
+  const closeSidebar = () => {
+    if (!isCollapsed) {
+      setIsCollapsed(true);
+    }
+  };
+
   // helper component for menu items
 
   const renderMenuItem = ({ text, path, icon }: MenuItem) => {
@@ -158,6 +164,8 @@ const Sidebar = ({
       <motion.div
         ref={desktopSidebarRef}
         className={sidebarStyles.sidebarContainer.base}
+        onMouseEnter={toggleSidebar}
+        onMouseLeave={closeSidebar}
         initial={{ x: -100, opacity: 0 }}
         animate={{ x: 0, opacity: 1, width: isCollapsed ? 80 : 256 }}
         transition={{ type: "spring", damping: 25 }}

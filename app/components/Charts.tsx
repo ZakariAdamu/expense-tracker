@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   Bar,
   BarChart,
@@ -73,34 +73,8 @@ export default function Charts() {
   } = useDashboardOutletContext();
 
   const [mounted, setMounted] = useState(false);
-  const chartRef = useRef<HTMLDivElement | null>(null);
-  const [chartSize, setChartSize] = useState({ width: 0, height: 0 });
-  const canRenderCharts =
-    mounted && chartSize.width > 0 && chartSize.height > 0;
-
   useEffect(() => {
     setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    const el = chartRef.current;
-    if (!el) return;
-
-    const measure = () => {
-      const newSize = { width: el.clientWidth, height: el.clientHeight };
-      setChartSize((prev) =>
-        prev.width !== newSize.width || prev.height !== newSize.height
-          ? newSize
-          : prev,
-      );
-    };
-
-    measure();
-    const ro = new ResizeObserver(() => {
-      measure();
-    });
-    ro.observe(el);
-    return () => ro.disconnect();
   }, []);
 
   const [showModal, setShowModal] = useState(false);
@@ -361,11 +335,10 @@ export default function Charts() {
           </p>
         </div>
         <div
-          className={dashboardStyles.pieChartHeight}
+          className={`${dashboardStyles.pieChartHeight} w-full relative`}
           style={{ minHeight: 320 }}
-          ref={chartRef}
         >
-          {canRenderCharts && (
+          {mounted && (
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
                 data={overviewData}
@@ -397,11 +370,11 @@ export default function Charts() {
         </div>
         <div className="grid gap-6 lg:grid-cols-[1.3fr_0.7fr]">
           <div
-            className={dashboardStyles.pieChartHeight}
+            className={`${dashboardStyles.pieChartHeight} w-full relative`}
             style={{ minHeight: 320 }}
           >
             {expenseByCategory.length > 0 ? (
-              canRenderCharts ? (
+              mounted ? (
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
                     <Pie
