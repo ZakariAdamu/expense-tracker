@@ -43,6 +43,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     if (!token) {
       Cookies.remove("token", { path: "/" });
+      Cookies.remove("isVerified", { path: "/" });
       return;
     }
     const persist = Boolean(localStorage.getItem("authToken"));
@@ -69,6 +70,15 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       sameSite: "lax",
       ...(remember ? { expires: 30 } : {}),
     });
+    if (typeof args.user?.isVerified === "boolean") {
+      Cookies.set("isVerified", args.user.isVerified ? "true" : "false", {
+        path: "/",
+        sameSite: "lax",
+        ...(remember ? { expires: 30 } : {}),
+      });
+    } else {
+      Cookies.remove("isVerified", { path: "/" });
+    }
     try {
       const storage = remember ? localStorage : sessionStorage;
       storage.setItem("authToken", args.token);
@@ -93,6 +103,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       sessionStorage.removeItem("authToken");
       sessionStorage.removeItem("user");
       Cookies.remove("token", { path: "/" });
+      Cookies.remove("isVerified", { path: "/" });
     } catch {
       // ignore
     }

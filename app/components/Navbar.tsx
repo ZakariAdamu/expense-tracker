@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from "react";
 import { ChevronDown, LogOut, User } from "lucide-react";
 import { NavbarProps } from "../types/types";
 import { useAuth } from "@/app/context/AuthContext";
+import { ModeToggle } from "./mode-toggle";
 
 const pinyonScript = Pinyon_Script({
   subsets: ["latin"],
@@ -73,80 +74,88 @@ const Navbar = ({ user: propUser, onLogout }: NavbarProps) => {
         {/* If user is logged in */}
         {user && (
           <div className={navbarStyles.userContainer} ref={menuRef}>
-            <button
-              onClick={toggleMenu}
-              className={`${navbarStyles.userButton} cursor-pointer`}
-            >
-              <div className="relative">
-                <div
-                  className={navbarStyles.userAvatar}
-                  suppressHydrationWarning
-                >
-                  {user?.name?.[0]?.toUpperCase() || ""}
+            <>
+              <button
+                onClick={toggleMenu}
+                className={`${navbarStyles.userButton} cursor-pointer`}
+              >
+                <div className="relative">
+                  <div
+                    className={navbarStyles.userAvatar}
+                    suppressHydrationWarning
+                  >
+                    {user?.name?.[0]?.toUpperCase() || ""}
+                  </div>
+                  <div className={navbarStyles.statusIndicator}></div>
                 </div>
-                <div className={navbarStyles.statusIndicator}></div>
-              </div>
-              <div className={navbarStyles.userTextContainer}>
-                <p className={navbarStyles.userName} suppressHydrationWarning>
-                  {user?.name || ""}
-                </p>
-                <p className={navbarStyles.userEmail} suppressHydrationWarning>
-                  {user?.email || ""}
-                </p>
-              </div>
-              <ChevronDown
-                size={16}
-                className={`${navbarStyles.chevronIcon} ${menuOpen ? "rotate-180" : ""}`}
-              />
-            </button>
+                <div className={navbarStyles.userTextContainer}>
+                  <p className={navbarStyles.userName} suppressHydrationWarning>
+                    {user?.name || ""}
+                  </p>
+                  <p
+                    className={navbarStyles.userEmail}
+                    suppressHydrationWarning
+                  >
+                    {user?.email || ""}
+                  </p>
+                </div>
+                <ChevronDown
+                  size={16}
+                  className={`${navbarStyles.chevronIcon} ${menuOpen ? "rotate-180" : ""}`}
+                />
+              </button>
 
-            {/* dropdown menu */}
-            {menuOpen && (
-              <div className={navbarStyles.dropdownMenu}>
-                <div className={navbarStyles.dropdownHeader}>
-                  <div className="flex items-center gap-3">
-                    <div
-                      className={navbarStyles.dropdownAvatar}
-                      suppressHydrationWarning
-                    >
-                      {user?.name?.[0]?.toUpperCase() || "U"}
-                    </div>
-                    <div>
-                      <div className={navbarStyles.dropdownName}>
-                        {user?.name || "User"}
+              {/* dropdown menu */}
+              {menuOpen && (
+                <div className={navbarStyles.dropdownMenu}>
+                  <div className={navbarStyles.dropdownHeader}>
+                    <div className="flex items-center gap-3">
+                      <div
+                        className={navbarStyles.dropdownAvatar}
+                        suppressHydrationWarning
+                      >
+                        {user?.name?.[0]?.toUpperCase() || "U"}
                       </div>
-                      <div className={navbarStyles.dropdownEmail}>
-                        {user?.email || "user@expensetracker.com"}
+                      <div>
+                        <div className={navbarStyles.dropdownName}>
+                          {user?.name || "User"}
+                        </div>
+                        <div className={navbarStyles.dropdownEmail}>
+                          {user?.email || "user@expensetracker.com"}
+                        </div>
                       </div>
                     </div>
                   </div>
+                  <div className={`${navbarStyles.menuItemContainer} hidden`}>
+                    <button
+                      onClick={() => {
+                        setMenuOpen(false);
+                        router.push("/profile");
+                      }}
+                      className={navbarStyles.menuItem}
+                    >
+                      <User size={16} className="mr-2" />
+                      <span>My Profile</span>
+                    </button>
+                  </div>
+                  <div className={navbarStyles.menuItemBorder}>
+                    <button
+                      onClick={handleLogout}
+                      className={navbarStyles.logoutButton}
+                    >
+                      <LogOut size={16} className="mr-2" />
+                      <span>Logout</span>
+                    </button>
+                  </div>
                 </div>
-                <div className={`${navbarStyles.menuItemContainer} hidden`}>
-                  <button
-                    onClick={() => {
-                      setMenuOpen(false);
-                      router.push("/profile");
-                    }}
-                    className={navbarStyles.menuItem}
-                  >
-                    <User size={16} className="mr-2" />
-                    <span>My Profile</span>
-                  </button>
-                </div>
-                <div className={navbarStyles.menuItemBorder}>
-                  <button
-                    onClick={handleLogout}
-                    className={navbarStyles.logoutButton}
-                  >
-                    <LogOut size={16} className="mr-2" />
-                    <span>Logout</span>
-                  </button>
-                </div>
-              </div>
-            )}
+              )}
+            </>
+            {/* Mode Toggle */}
+            <span className="hidden">
+              <ModeToggle />
+            </span>
           </div>
         )}
-        ;
       </div>
     </header>
   );

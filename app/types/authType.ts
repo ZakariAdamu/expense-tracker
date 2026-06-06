@@ -30,8 +30,10 @@ export type OtpMailRequestData = {
   token: string;
 };
 
-export type OtpVerifyData = {
-  email: string;
+export type EmailVerificationData = {
+  email?: string;
+  code: string;
+  isVerified?: boolean;
 };
 
 export type ForgotPasswordData = {

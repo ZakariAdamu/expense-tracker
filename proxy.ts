@@ -5,6 +5,7 @@ import type { NextRequest } from "next/server";
 export function proxy(request: NextRequest) {
   const url = request.nextUrl;
   const token = request.cookies.get("token")?.value;
+  const isVerified = request.cookies.get("isVerified")?.value;
 
   // Allow OAuth redirect to pass once
   if (url.searchParams.get("from") === "auth" || url.searchParams.has("code")) {
@@ -19,6 +20,12 @@ export function proxy(request: NextRequest) {
 
   if (isProtected && !token) {
     return NextResponse.redirect(new URL("/login", request.url));
+  }
+
+  if (isProtected && token && isVerified === "false") {
+    const verifyUrl = new URL("/verify-request", request.url);
+    verifyUrl.searchParams.set("from", url.pathname);
+    return NextResponse.redirect(verifyUrl);
   }
 
   return NextResponse.next();

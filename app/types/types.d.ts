@@ -3,6 +3,7 @@ export type NavbarProps = {
     name: string | null;
     email: string | null;
     image?: string | null;
+    isVerified?: boolean | null;
   } | null;
   onLogout?: () => void;
 };

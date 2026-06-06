@@ -450,7 +450,7 @@ function TransactionOverviewPage({
   );
 
   const fetchOverview = useCallback(
-    async (range = timeFrame ?? "monthly") => {
+    async (range = timeFrame ?? "daily") => {
       try {
         const response = await axios.get(
           `process.env.NEXT_PUBLIC_API_BASE_URL_PROD/${config.apiPath}`,
@@ -493,7 +493,7 @@ function TransactionOverviewPage({
   );
 
   useEffect(() => {
-    fetchOverview(timeFrame ?? "monthly");
+    fetchOverview(timeFrame ?? "daily");
   }, [fetchOverview, timeFrame]);
 
   const handleAddTransaction = useCallback(async () => {
@@ -517,7 +517,7 @@ function TransactionOverviewPage({
       }
 
       await refreshTransactions();
-      await fetchOverview(timeFrame ?? "monthly");
+      await fetchOverview(timeFrame ?? "daily");
 
       setNewTransaction({
         date: new Date().toISOString().split("T")[0],
@@ -572,7 +572,7 @@ function TransactionOverviewPage({
       );
 
       await refreshTransactions();
-      await fetchOverview(timeFrame ?? "monthly");
+      await fetchOverview(timeFrame ?? "daily");
       toast.success(`${config.entityLabel} updated successfully.`);
 
       setEditingId(null);
@@ -611,7 +611,7 @@ function TransactionOverviewPage({
         );
 
         await refreshTransactions();
-        await fetchOverview(timeFrame ?? "monthly");
+        await fetchOverview(timeFrame ?? "daily");
         toast.success(`${config.entityLabel} deleted successfully.`);
       } catch (error: unknown) {
         console.error(`Delete ${config.entityLabelLower} error:`, error);
