@@ -1,9 +1,65 @@
 # Expense Tracker
 
-Finance Pro now has a split frontend/backend structure:
+Expense Tracker now has a split frontend/backend structure:
 
 - `app/` contains the Next.js frontend
 - `backend/` contains a standalone Express API
+
+  # Expense Tracker
+
+A production-ready full-stack personal finance platform focused on security, scalability, and modern development practices.
+
+## Features
+
+### Authentication & Security
+- JWT Authentication (Access & Refresh Tokens)
+- OTP-Based Email Verification
+- Password Hashing with bcrypt
+- Protected Routes
+- Secure Cookie Management
+- Persistent Sessions
+- Input Validation & Sanitization
+
+### Backend
+- Node.js
+- Express.js
+- TypeScript
+- MongoDB & Mongoose
+- Zod Validation
+- REST API Architecture
+- Error Handling Middleware
+
+### Frontend
+- Next.js App Router
+- TypeScript
+- React Hook Form
+- Zod Validation
+- ShadCN/UI
+- Responsive Design
+- Protected Client Routes
+
+### DevOps & Deployment
+- Docker
+- Render Deployment
+- Environment Variables
+- Cloud Database Integration
+- CI/CD Workflow
+
+## Screenshots
+
+## Installation
+
+```bash
+npm install
+```
+
+## Environment Variables
+
+## API Documentation
+
+## Future Improvements
+
+## Author
 
 ## Running the app
 
